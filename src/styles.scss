@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+.form-wrapper {
+  height: 100%;
+  background-color: #dedede;
+
+  mat-card {
+    padding: 20px 50px 30px;
+  }
+
+  mat-card-header {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-container {
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .input-field, .btn-block {
+    width: 100%;
+  }
+
+  .mat-stroked-button {
+    border: 1px solid currentColor;
+    padding: 10px;
+    background: #FFF7FA;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 10px;
+  }
+}

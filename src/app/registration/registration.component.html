@@ -1,0 +1,41 @@
+<mat-card-header>
+  <mat-card-title>Register</mat-card-title>
+</mat-card-header>
+
+
+<form class="form-container" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+  <mat-card-content>
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Username" formControlName="userName" required>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Email" formControlName="email" required>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Password" formControlName="password" required>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <input matInput placeholder="Password Confirmation" formControlName="passwordConfirmation" required>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <textarea matInput placeholder="Personal Info" formControlName="personalInfo"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="input-field">
+      <mat-label>Select your gender</mat-label>
+      <mat-select (change)="selectGender($event)" formControlName="gender" required>
+        <mat-option *ngFor="let sex of gender" [value]="sex.value">{{sex.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </mat-card-content>
+
+  <button type="submit" mat-stroked-button color="accent" class="btn-block">Register</button>
+
+</form>
