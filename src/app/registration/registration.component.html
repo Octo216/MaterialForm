@@ -8,18 +8,27 @@
   <mat-card-content>
     <mat-form-field class="input-field">
       <input matInput placeholder="Username" formControlName="userName" required>
+      <mat-error align="end" *ngIf="!userName.hasError('required')">Please enter your username</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field">
       <input matInput placeholder="Email" formControlName="email" required>
+      <mat-hint align="end">Hint: email@domain.com</mat-hint>
+      <mat-error align="end" *ngIf="email.hasError('error') && !email.hasError('required')">Please enter a valid email address</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field">
-      <input matInput placeholder="Password" formControlName="password" required>
+      <input matInput type="password" placeholder="Password" formControlName="password" required>
+      <mat-hint align="end">Hint: Min 5 symbols(1 letter, 1 digit and 1 special character)</mat-hint>
+      <mat-error align="end" *ngIf="">Please create your password</mat-error>
+      <mat-error align="end" *ngIf="">Your password too short, min length 5 characters</mat-error>
+      <mat-error align="end" *ngIf="">Your password too long, max length 64 characters</mat-error>
+      <mat-error align="end" *ngIf="">Your password should contain at least 1 letter, 1 digit and 1 special character</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field">
-      <input matInput placeholder="Password Confirmation" formControlName="passwordConfirmation" required>
+      <input matInput type="password" placeholder="Password Confirmation" formControlName="passwordConfirmation" required>
+      <mat-error align="end" *ngIf="">Entered passwords doesn't match</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field">

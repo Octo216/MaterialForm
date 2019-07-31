@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormArray, Validators, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
 
 export interface Gender {
   value: string;
@@ -11,8 +11,9 @@ export interface Gender {
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   submitted = false;
+  registrationForm: FormGroup;
 
   gender: Gender[] = [
     {value: 'male', viewValue: 'Male'},
@@ -20,40 +21,33 @@ export class RegistrationComponent {
     {value: 'other', viewValue: 'Other'},
   ];
 
-  constructor(public fb: FormBuilder) {
+  constructor(public formBuilder: FormBuilder) {
   }
 
-  registrationForm = this.fb.group({
-    email: ['',
-      Validators.required,
-      Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')],
-    userName: ['', [Validators.required]],
-    PasswordValidation: this.fb.group({
-      password: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(64),
-        Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$'
-        )]],
-      passwordConfirmation: ['', Validators.required]
-    }, {
-      validators: this.passwordValidate
-    }),
-    personalInfo: [''],
-    gender: ['', Validators.required],
-    addDynamicElement: this.fb.array([])
-  });
+  ngOnInit(): void {
+    this.registrationForm = this.formBuilder.group({
+        email: new FormControl('', [
+          Validators.required,
+          Validators.email
+        ]),
+        userName: new FormControl('', [Validators.required]),
+        password: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(64),
+          Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{5,}$')])),
+        passwordConfirmation: new FormControl('', Validators.required),
+        personalInfo: new FormControl(''),
+        gender: new FormControl('', Validators.required),
+      }, {
+        validator: this.passwordValidate
+      }
+    )
+    ;
+  }
 
   get myForm() {
     return this.registrationForm.controls;
-  }
-
-  get addDynamicElement() {
-    return this.registrationForm.get('addDynamicElement') as FormArray;
-  }
-
-  addSuperPowers() {
-    this.addDynamicElement.push(this.fb.control(''));
   }
 
   onSubmit() {
@@ -75,7 +69,6 @@ export class RegistrationComponent {
   passwordValidate(group: FormGroup) {
     const pass = group.controls.password.value;
     const confirmPass = group.controls.passwordConfirmation.value;
-
     return pass === confirmPass ? null : {notSame: true};
   }
 }
