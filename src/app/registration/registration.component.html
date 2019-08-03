@@ -55,7 +55,10 @@
                  *ngIf="registrationForm.get('passwordConfirmation').hasError('required') && registrationForm.get('passwordConfirmation').touched">
         Please repeat password
       </mat-error>
-      <!--      <mat-error align="end" *ngIf="registrationForm.get('passwordConfirmation').touched">Entered passwords doesn't match</mat-error>-->
+      <mat-error align="end"
+                 *ngIf="registrationForm.get('passwordConfirmation').errors && registrationForm.get('passwordConfirmation').touched">
+        Entered passwords doesn't match
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field">

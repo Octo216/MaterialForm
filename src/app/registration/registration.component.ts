@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
+import {ValidatePassword} from './validate-password';
 
 export interface Gender {
   value: string;
@@ -40,7 +41,7 @@ export class RegistrationComponent implements OnInit {
         personalInfo: new FormControl(''),
         gender: new FormControl('', Validators.required),
       }, {
-        validator: this.passwordValidate
+        validator: ValidatePassword.MatchPassword
       }
     )
     ;
@@ -64,11 +65,5 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm.get('gender').setValue(e.target.value, {
       onlySelf: true
     });
-  }
-
-  passwordValidate(group: FormGroup) {
-    const pass = group.controls.password.value;
-    const confirmPass = group.controls.passwordConfirmation.value;
-    return pass === confirmPass ? null : {notSame: true};
   }
 }
