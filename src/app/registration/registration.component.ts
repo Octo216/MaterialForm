@@ -13,33 +13,30 @@ export interface Gender {
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  submitted = false;
-  registrationForm: FormGroup;
+  public submitted = false;
+  public registrationForm: FormGroup;
 
-  gender: Gender[] = [
+  public gender: Gender[] = [
     {value: 'male', viewValue: 'Male'},
     {value: 'female', viewValue: 'Female'},
     {value: 'other', viewValue: 'Other'},
   ];
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public readonly formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
-        email: new FormControl('', [
-          Validators.required,
-          Validators.email
-        ]),
-        userName: new FormControl('', [Validators.required]),
-        password: new FormControl('', Validators.compose([
+        email: ['', [Validators.required, Validators.email]],
+        userName: ['', [Validators.required]],
+        password: ['', Validators.compose([
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(64),
-          Validators.pattern(/^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[^\w\s]).{5,}$/)])),
-        passwordConfirmation: new FormControl('', Validators.required),
-        personalInfo: new FormControl(''),
-        gender: new FormControl('', Validators.required),
+          Validators.pattern(/^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[^\w\s]).{5,}$/)])],
+        passwordConfirmation: ['', [Validators.required]],
+        personalInfo: [''],
+        gender: ['', Validators.required],
       }, {
         validator: ValidatePassword.MatchPassword
       }
@@ -47,23 +44,17 @@ export class RegistrationComponent implements OnInit {
     ;
   }
 
-  get myForm() {
-    return this.registrationForm.controls;
-  }
-
-  onSubmit() {
+  onSubmit(): boolean {
     this.submitted = true;
     if (!this.registrationForm.valid) {
       alert('Please fill all the required fields to create a super hero!');
       return false;
-    } else {
-      console.log(this.registrationForm.value);
     }
+    console.log(this.registrationForm.value);
   }
 
-  selectGender(e) {
-    this.registrationForm.get('gender').setValue(e.target.value, {
-      onlySelf: true
-    });
+  selectGender(e: Event): void {
+    const target = e.target as HTMLInputElement;
+    this.registrationForm.get('gender').setValue(target.value, {onlySelf: true});
   }
 }
