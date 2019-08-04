@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
+import {FormBuilder, Validators, FormGroup} from '@angular/forms';
 import {ValidatePassword} from './validate-password';
+import {FormErrorMessages, formErrorMessages} from '../form-errors-constant';
 
 export interface Gender {
   value: string;
@@ -15,6 +16,7 @@ export interface Gender {
 export class RegistrationComponent implements OnInit {
   public submitted = false;
   public registrationForm: FormGroup;
+  public formErrorMessages: FormErrorMessages;
 
   public gender: Gender[] = [
     {value: 'male', viewValue: 'Male'},
@@ -26,6 +28,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.formErrorMessages = formErrorMessages;
+
     this.registrationForm = this.formBuilder.group({
         email: ['', [Validators.required, Validators.email]],
         userName: ['', [Validators.required]],

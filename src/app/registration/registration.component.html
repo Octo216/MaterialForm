@@ -10,7 +10,7 @@
       <input matInput placeholder="Username" formControlName="userName" required>
       <mat-error align="end"
                  *ngIf="registrationForm.get('userName').hasError('required') && registrationForm.get('userName').touched">
-        Please enter your username
+        {{ formErrorMessages.userName.require }}
       </mat-error>
     </mat-form-field>
 
@@ -19,11 +19,11 @@
       <mat-hint align="end">Hint: email@domain.com</mat-hint>
       <mat-error align="end"
                  *ngIf="registrationForm.get('email').hasError('email') && registrationForm.get('email').touched">
-        Email address should look like this email@domain.com
+        {{ formErrorMessages.email.pattern }}
       </mat-error>
       <mat-error align="end"
                  *ngIf="registrationForm.get('email').hasError('required') && registrationForm.get('email').touched">
-        Please enter a valid email address
+        {{ formErrorMessages.email.require }}
       </mat-error>
     </mat-form-field>
 
@@ -32,19 +32,19 @@
       <mat-hint align="end">Hint: Min 5 symbols(1 letter, 1 digit and 1 special character)</mat-hint>
       <mat-error align="end"
                  *ngIf="registrationForm.get('password').hasError('required') && registrationForm.get('password').touched">
-        Please create your password
+        {{ formErrorMessages.password.require }}
       </mat-error>
       <mat-error align="end"
                  *ngIf="registrationForm.get('password').hasError('minlength') && registrationForm.get('password').touched">
-        Your password too short, min length 5 characters
+        {{ formErrorMessages.password.minLength }}
       </mat-error>
       <mat-error align="end"
                  *ngIf="registrationForm.get('password').hasError('maxlength') && registrationForm.get('password').touched">
-        Your password too long, max length 64 characters
+        {{ formErrorMessages.password.maxLength }}
       </mat-error>
       <mat-error align="end"
                  *ngIf="registrationForm.get('password').hasError('pattern') && registrationForm.get('password').touched">
-        Your password should contain at least 1 letter, 1 digit and 1 special character
+        {{ formErrorMessages.password.pattern }}
       </mat-error>
     </mat-form-field>
 
@@ -53,11 +53,11 @@
              required>
       <mat-error align="end"
                  *ngIf="registrationForm.get('passwordConfirmation').hasError('required') && registrationForm.get('passwordConfirmation').touched">
-        Please repeat password
+        {{ formErrorMessages.passwordConfirmation.require }}
       </mat-error>
       <mat-error align="end"
                  *ngIf="registrationForm.get('passwordConfirmation').errors && registrationForm.get('passwordConfirmation').touched">
-        Entered passwords doesn't match
+        {{ formErrorMessages.passwordConfirmation.match }}
       </mat-error>
     </mat-form-field>
 
@@ -73,7 +73,7 @@
       </mat-select>
       <mat-error align="end"
                  *ngIf="registrationForm.get('gender').hasError('required') && registrationForm.get('gender').touched">
-        Please enter your gender
+        {{ formErrorMessages.gender.require }}
       </mat-error>
     </mat-form-field>
 

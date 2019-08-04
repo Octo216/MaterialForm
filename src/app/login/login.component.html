@@ -2,14 +2,22 @@
   <mat-card-title>Log in</mat-card-title>
 </mat-card-header>
 
-<form class="form-container">
+<form class="form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <mat-card-content>
     <mat-form-field class="input-field">
-      <input matInput placeholder="Username">
+      <input matInput placeholder="Username" formControlName="userName" required>
+      <mat-error align="end"
+                 *ngIf="loginForm.get('userName').hasError('required') && loginForm.get('userName').touched">
+        {{ formErrorMessages.userName.require }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-field">
-      <input matInput placeholder="Password">
+      <input matInput placeholder="Password" formControlName="password" required>
+      <mat-error align="end"
+                 *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+        {{ formErrorMessages.password.require }}
+      </mat-error>
     </mat-form-field>
   </mat-card-content>
   <button mat-stroked-button color="accent" class="btn-block">Log in</button>
