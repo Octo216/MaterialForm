@@ -9,6 +9,7 @@ import {formErrorMessages, FormErrorMessages} from '../form-errors-constant';
 })
 export class LoginComponent implements OnInit {
   public submitted = false;
+  public formValid: boolean;
   public loginForm: FormGroup;
   public formErrorMessages: FormErrorMessages;
 
@@ -24,6 +25,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  onSubmit(): boolean {
+    this.submitted = true;
+    if (!this.loginForm.valid) {
+      this.formValid = false;
+      return false;
+    }
+    this.formValid = true;
+    console.log(this.loginForm.value);
   }
 }

@@ -3,11 +3,15 @@
 </mat-card-header>
 
 <form class="form-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+  <div *ngIf="formValid" class="message success"> {{formErrorMessages.validLogInForm}}</div>
+  <div *ngIf="formValid === false" class="message error"> {{formErrorMessages.invalidLogInForm}}</div>
+
   <mat-card-content>
     <mat-form-field class="input-field">
       <input matInput placeholder="Username" formControlName="userName" required>
       <mat-error align="end"
-                 *ngIf="loginForm.get('userName').hasError('required') && loginForm.get('userName').touched">
+                 *ngIf="loginForm.get('userName').hasError('required') && loginForm.get('userName').touched || submitted">
         {{ formErrorMessages.userName.require }}
       </mat-error>
     </mat-form-field>
@@ -15,7 +19,7 @@
     <mat-form-field class="input-field">
       <input matInput placeholder="Password" formControlName="password" required>
       <mat-error align="end"
-                 *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">
+                 *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched || submitted">
         {{ formErrorMessages.password.require }}
       </mat-error>
     </mat-form-field>

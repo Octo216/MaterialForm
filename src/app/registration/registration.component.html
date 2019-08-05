@@ -5,11 +5,14 @@
 
 <form class="form-container" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
 
+  <div *ngIf="formValid" class="message success"> {{formErrorMessages.validRegistrationForm}}</div>
+  <div *ngIf="formValid === false" class="message error"> {{formErrorMessages.invalidRegistrationForm}}</div>
+
   <mat-card-content>
     <mat-form-field class="input-field">
       <input matInput placeholder="Username" formControlName="userName" required>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('userName').hasError('required') && registrationForm.get('userName').touched">
+                 *ngIf="registrationForm.get('userName').hasError('required') && registrationForm.get('userName').touched || submitted">
         {{ formErrorMessages.userName.require }}
       </mat-error>
     </mat-form-field>
@@ -18,11 +21,11 @@
       <input matInput placeholder="Email" formControlName="email" required>
       <mat-hint align="end">Hint: email@domain.com</mat-hint>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('email').hasError('email') && registrationForm.get('email').touched">
+                 *ngIf="registrationForm.get('email').hasError('email') && registrationForm.get('email').touched || submitted">
         {{ formErrorMessages.email.pattern }}
       </mat-error>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('email').hasError('required') && registrationForm.get('email').touched">
+                 *ngIf="registrationForm.get('email').hasError('required') && registrationForm.get('email').touched || submitted">
         {{ formErrorMessages.email.require }}
       </mat-error>
     </mat-form-field>
@@ -31,19 +34,19 @@
       <input matInput type="password" placeholder="Password" formControlName="password" required>
       <mat-hint align="end">Hint: Min 5 symbols(1 letter, 1 digit and 1 special character)</mat-hint>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('password').hasError('required') && registrationForm.get('password').touched">
+                 *ngIf="registrationForm.get('password').hasError('required') && registrationForm.get('password').touched || submitted">
         {{ formErrorMessages.password.require }}
       </mat-error>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('password').hasError('minlength') && registrationForm.get('password').touched">
+                 *ngIf="registrationForm.get('password').hasError('minlength') && registrationForm.get('password').touched || submitted">
         {{ formErrorMessages.password.minLength }}
       </mat-error>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('password').hasError('maxlength') && registrationForm.get('password').touched">
+                 *ngIf="registrationForm.get('password').hasError('maxlength') && registrationForm.get('password').touched || submitted">
         {{ formErrorMessages.password.maxLength }}
       </mat-error>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('password').hasError('pattern') && registrationForm.get('password').touched">
+                 *ngIf="registrationForm.get('password').hasError('pattern') && registrationForm.get('password').touched || submitted">
         {{ formErrorMessages.password.pattern }}
       </mat-error>
     </mat-form-field>
@@ -52,11 +55,11 @@
       <input matInput type="password" placeholder="Password Confirmation" formControlName="passwordConfirmation"
              required>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('passwordConfirmation').hasError('required') && registrationForm.get('passwordConfirmation').touched">
+                 *ngIf="registrationForm.get('passwordConfirmation').hasError('required') && registrationForm.get('passwordConfirmation').touched || submitted">
         {{ formErrorMessages.passwordConfirmation.require }}
       </mat-error>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('passwordConfirmation').errors && registrationForm.get('passwordConfirmation').touched">
+                 *ngIf="registrationForm.get('passwordConfirmation').errors && registrationForm.get('passwordConfirmation').touched || submitted">
         {{ formErrorMessages.passwordConfirmation.match }}
       </mat-error>
     </mat-form-field>
@@ -72,7 +75,7 @@
         </mat-option>
       </mat-select>
       <mat-error align="end"
-                 *ngIf="registrationForm.get('gender').hasError('required') && registrationForm.get('gender').touched">
+                 *ngIf="registrationForm.get('gender').hasError('required') && registrationForm.get('gender').touched || submitted">
         {{ formErrorMessages.gender.require }}
       </mat-error>
     </mat-form-field>

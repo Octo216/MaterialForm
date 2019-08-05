@@ -1,4 +1,8 @@
 export interface FormErrorMessages {
+  validRegistrationForm: string;
+  invalidRegistrationForm: string;
+  validLogInForm: string;
+  invalidLogInForm: string;
   userName: {
     require: string,
   };
@@ -22,6 +26,10 @@ export interface FormErrorMessages {
 }
 
 export const formErrorMessages: FormErrorMessages = {
+  validRegistrationForm: 'Registration successful',
+  invalidRegistrationForm: 'Registration unsuccessful',
+  validLogInForm: 'Log in successful',
+  invalidLogInForm: 'Log in unsuccessful',
   userName: {
     require: 'Please enter your username',
   },

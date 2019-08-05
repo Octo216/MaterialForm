@@ -15,6 +15,7 @@ export interface Gender {
 })
 export class RegistrationComponent implements OnInit {
   public submitted = false;
+  public formValid: boolean;
   public registrationForm: FormGroup;
   public formErrorMessages: FormErrorMessages;
 
@@ -51,9 +52,10 @@ export class RegistrationComponent implements OnInit {
   onSubmit(): boolean {
     this.submitted = true;
     if (!this.registrationForm.valid) {
-      alert('Please fill all the required fields to create a super hero!');
+      this.formValid = false;
       return false;
     }
+    this.formValid = true;
     console.log(this.registrationForm.value);
   }
 
